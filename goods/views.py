@@ -13,5 +13,16 @@ def catalog(request):
     return render(request, "goods/catalog.html", context=context)
 
 
-def product(request):
-    return render(request, "goods/product.html")
+def product(request, product_slug = False, product_id = False):
+    if product_id:
+        product = Products.objects.get(id=product_id)
+        context = {
+        'product': product
+        }
+    else:
+        product = Products.objects.get(slug=product_slug)
+        context = {
+            'product': product
+        }
+
+    return render(request, "goods/product.html", context=context)
